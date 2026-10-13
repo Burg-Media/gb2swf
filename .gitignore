@@ -1,0 +1,30 @@
+# Game files: never commit ROMs, saves or anything made from them
+*.gb
+*.gbc
+*.sgb
+*.cgb
+*.rom
+*.sav
+*.srm
+*.rtc
+*.swf
+*_work/
+*_html/
+games/
+homebrew/
+testroms/
+
+# Build output and downloads
+build/
+release/
+lib/gb2swf.js
+player/ruffle/ruffle-wasm.js
+*.wav
+*.png.tmp
+
+# Editors and systems
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+node_modules/

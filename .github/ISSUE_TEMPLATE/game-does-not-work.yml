@@ -1,0 +1,67 @@
+name: A game does not work
+description: A game builds or plays wrongly with gb2swf
+labels: ["game compatibility"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting! **Never attach, upload or link the ROM** (or parts of it, or the generated code in `*_work/rec/`). Issues with ROMs or ROM links are deleted. We identify the game by its name and checksums.
+  - type: input
+    id: game
+    attributes:
+      label: Game name
+      description: Title and region/version as printed on the cartridge or in the game's own release.
+      placeholder: "Example Quest (Europe), version 1.1"
+    validations:
+      required: true
+  - type: textarea
+    id: info
+    attributes:
+      label: Output of `gb2swf info <rom>`
+      description: Contains the title, cartridge type and the header and global checksums. Paste it as-is.
+      render: text
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: gb2swf version
+      description: Output of `gb2swf --version`.
+      placeholder: "1.0.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Your system
+      options: [macOS (Apple silicon), macOS (Intel), Windows, Linux x64, Linux arm64, other]
+    validations:
+      required: true
+  - type: dropdown
+    id: stage
+    attributes:
+      label: What goes wrong?
+      options:
+        - The build fails
+        - The build reports a difference in the check
+        - The game does not start or freezes
+        - Wrong picture
+        - Wrong sound
+        - Too slow
+        - Saves do not work
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: What happens, and what did you expect?
+      description: Where in the game, which browser (and version), or the Flash Player projector. Screenshots of the problem are welcome.
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: Build log
+      description: The contents of `<name>_work/build.log`.
+      render: text

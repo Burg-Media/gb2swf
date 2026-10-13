@@ -1,0 +1,82 @@
+# gb2swf continuous integration: test ROMs, lockstep checks on open-licensed
+# homebrew games, and (for version tags) the release packages as build artifacts.
+# Nothing is published automatically.
+name: CI
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  HAXE_VERSION: 4.3.7
+  HAXE_SHA256: a156b3d039daa572f1f9329870ee753e3c39b7514fe8c818069323579659acca
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Install Haxe
+        run: |
+          curl -sSL -o haxe.tar.gz "https://github.com/HaxeFoundation/haxe/releases/download/$HAXE_VERSION/haxe-$HAXE_VERSION-linux64.tar.gz"
+          echo "$HAXE_SHA256  haxe.tar.gz" | sha256sum -c -
+          mkdir -p "$RUNNER_TEMP/haxe" && tar xzf haxe.tar.gz -C "$RUNNER_TEMP/haxe" --strip-components=1
+          echo "$RUNNER_TEMP/haxe" >> "$GITHUB_PATH"
+          echo "HAXE_STD_PATH=$RUNNER_TEMP/haxe/std" >> "$GITHUB_ENV"
+      - name: Build the tool
+        run: haxe build-tool.hxml
+      - name: Generated interpreter is up to date
+        run: |
+          node lib/gb2swf.js dev gen-interp
+          git diff --exit-code src/gb/Cpu.hx
+      - name: Fetch test ROMs and homebrew (pinned, SHA-256 checked)
+        run: node scripts/fetch-testroms.mjs --homebrew
+      - name: Test ROMs (interpreter and recompiled)
+        run: node lib/gb2swf.js dev testroms --rec --md build/testroms.md
+      - name: Lockstep check on homebrew games
+        run: |
+          for rom in homebrew/libbet.gb homebrew/geometrix.gbc homebrew/big2small.gb homebrew/ucity.gbc; do
+            node lib/gb2swf.js "$rom" -o build/ci --strict
+          done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: |
+            build/testroms.md
+            build/ci/*_work/build.log
+            build/ci/*_work/report.json
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Install Haxe
+        run: |
+          curl -sSL -o haxe.tar.gz "https://github.com/HaxeFoundation/haxe/releases/download/$HAXE_VERSION/haxe-$HAXE_VERSION-linux64.tar.gz"
+          echo "$HAXE_SHA256  haxe.tar.gz" | sha256sum -c -
+          mkdir -p "$RUNNER_TEMP/haxe" && tar xzf haxe.tar.gz -C "$RUNNER_TEMP/haxe" --strip-components=1
+          echo "$RUNNER_TEMP/haxe" >> "$GITHUB_PATH"
+          echo "HAXE_STD_PATH=$RUNNER_TEMP/haxe/std" >> "$GITHUB_ENV"
+      - name: Build release packages
+        run: node scripts/make-release.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gb2swf-release
+          path: |
+            release/*.zip
+            release/*.tar.gz
+            release/SHA256SUMS.txt

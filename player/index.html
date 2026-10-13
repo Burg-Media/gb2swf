@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="gb2swf-player.css">
+</head>
+<body>
+<!-- Made with gb2swf. This page loads nothing from the internet. -->
+<main>
+  <div id="screen" aria-label="Game screen"><p id="status">Loading…</p></div>
+  <nav id="bar">
+    <button id="b-full" title="Full screen (F11 also works)">Full screen</button>
+    <button id="b-sound" title="Sound on/off">Sound: on</button>
+    <input id="volume" type="range" min="0" max="100" value="80" aria-label="Volume">
+    <button id="b-keys" aria-expanded="false">Controls</button>
+    <span id="pal-wrap" hidden><label for="palette">Colours</label>
+      <select id="palette">
+        <option value="">as built</option>
+        <option value="e0f8d0,88c070,346856,081820">green</option>
+        <option value="ffffff,aaaaaa,555555,000000">grey</option>
+        <option value="c4cfa1,8b956d,4d533c,1f1f1f">pocket</option>
+        <option value="ffe4a0,d89a3c,8a4a12,2a1004">amber</option>
+      </select></span>
+    <button id="b-more" aria-expanded="false">More</button>
+  </nav>
+  <section id="keys" class="panel" hidden>
+    <p>Click a button, then press the key you want for it. Gamepads work too (A/B, Start/Select, d-pad or left stick).</p>
+    <div id="keylist"></div>
+    <button id="keys-reset">Reset to defaults</button>
+  </section>
+  <section id="more" class="panel" hidden>
+    <div class="row" id="save-row">
+      <strong>Saved game</strong>
+      <button id="sav-export">Download .sav</button>
+      <label class="file">Load .sav<input id="sav-import" type="file" accept=".sav,.srm,application/octet-stream"></label>
+      <span class="hint">The game saves by itself in this browser. A .sav file lets you keep a copy or move it.</span>
+    </div>
+    <div class="row">
+      <strong>Input recording</strong>
+      <button id="rec">Start recording</button>
+      <span class="hint">Restarts the game and records your buttons. Give the file to <code>gb2swf --record</code> to make more of the game run as recompiled code.</span>
+    </div>
+    <div class="row">
+      <strong>Info</strong>
+      <button id="b-info">Show fps</button>
+      <button id="b-reset">Restart game</button>
+    </div>
+  </section>
+</main>
+<div id="pad" hidden aria-hidden="true">
+  <div class="dpad"><b data-k="4">▲</b><b data-k="2">◀</b><b data-k="1">▶</b><b data-k="8">▼</b></div>
+  <div class="mid"><b data-k="64">SELECT</b><b data-k="128">START</b></div>
+  <div class="ab"><b data-k="32">B</b><b data-k="16">A</b></div>
+</div>
+<p id="foot">Made with gb2swf · runs with <a href="ruffle/LICENSE_MIT" rel="noreferrer">Ruffle</a> · works offline</p>
+<script src="gb2swf-audio.js"></script>
+<script src="ruffle/ruffle-wasm.js"></script>
+<script src="game.js"></script>
+<script src="gb2swf-player.js"></script>
+<script src="ruffle/ruffle.js"></script>
+<script>GB2SWF.start();</script>
+</body>
+</html>

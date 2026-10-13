@@ -1,0 +1,6 @@
+# Builds the gb2swf command line tool: lib/gb2swf.js (run with Node.js)
+-cp src
+-main tool.Cli
+-js lib/gb2swf.js
+-D js-es=6
+-dce full

@@ -1,0 +1,778 @@
+{
+ "comment": "Test ROMs used by `gb2swf dev testroms`. They are NOT part of gb2swf releases; fetch them with `node scripts/fetch-testroms.mjs` (pinned URLs, SHA-256 checked).",
+ "suites": [
+  {
+   "name": "Blargg",
+   "dir": "blargg",
+   "license": "none stated (Shay Green); used for testing only, not redistributed",
+   "source": "https://github.com/retrio/gb-test-roms/tree/c240dd7d700e5c0b00a7bbba52b53e4ee67b5f15",
+   "tests": [
+    {
+     "rom": "cpu_instrs/cpu_instrs.gb",
+     "kind": "serial",
+     "frames": 4000,
+     "url": "https://raw.githubusercontent.com/retrio/gb-test-roms/c240dd7d700e5c0b00a7bbba52b53e4ee67b5f15/cpu_instrs/cpu_instrs.gb",
+     "sha256": "8c5e12f41e0ba5bbca796944f92ffe6de28809198682c4332e38d1b3cf56fcf2"
+    },
+    {
+     "rom": "instr_timing/instr_timing.gb",
+     "kind": "serial",
+     "frames": 400,
+     "url": "https://raw.githubusercontent.com/retrio/gb-test-roms/c240dd7d700e5c0b00a7bbba52b53e4ee67b5f15/instr_timing/instr_timing.gb",
+     "sha256": "646067b3d6c79fda810e9c3f1cb7c0efd5abb0a7ac06437c54e65720c15d9925"
+    },
+    {
+     "rom": "mem_timing/mem_timing.gb",
+     "kind": "serial",
+     "frames": 800,
+     "url": "https://raw.githubusercontent.com/retrio/gb-test-roms/c240dd7d700e5c0b00a7bbba52b53e4ee67b5f15/mem_timing/mem_timing.gb",
+     "sha256": "791cb418fd054b482a6ada5017e2405b96c2373a0f3914c6b23afeee76fa98ce"
+    },
+    {
+     "rom": "mem_timing-2/mem_timing.gb",
+     "kind": "memory",
+     "frames": 800,
+     "url": "https://raw.githubusercontent.com/retrio/gb-test-roms/c240dd7d700e5c0b00a7bbba52b53e4ee67b5f15/mem_timing-2/mem_timing.gb",
+     "sha256": "ab9daf4c51f417c468ad0a61dab66872cf8b5a50e6eb08d989b581d15f3cf461"
+    },
+    {
+     "rom": "halt_bug.gb",
+     "kind": "memory",
+     "frames": 400,
+     "url": "https://raw.githubusercontent.com/retrio/gb-test-roms/c240dd7d700e5c0b00a7bbba52b53e4ee67b5f15/halt_bug.gb",
+     "sha256": "ddebfb81f992132954a5580e16cfb97346a4e061c762634d7701328e23fea7c6"
+    },
+    {
+     "rom": "interrupt_time/interrupt_time.gb",
+     "kind": "memory",
+     "frames": 400,
+     "url": "https://raw.githubusercontent.com/retrio/gb-test-roms/c240dd7d700e5c0b00a7bbba52b53e4ee67b5f15/interrupt_time/interrupt_time.gb",
+     "sha256": "1a8f8f3bc609a92a5838214c00906c81e7cc77b3b9a63be5a1ec6d513f234929"
+    },
+    {
+     "rom": "oam_bug/oam_bug.gb",
+     "kind": "memory",
+     "frames": 1500,
+     "url": "https://raw.githubusercontent.com/retrio/gb-test-roms/c240dd7d700e5c0b00a7bbba52b53e4ee67b5f15/oam_bug/oam_bug.gb",
+     "sha256": "21f0e7af73e525d14ca242ba28f97d4d381a40a61b3466dd6b4cae3e502e1ea1",
+     "expect": "fail",
+     "reason": "OAM corruption bug of the DMG is not emulated"
+    },
+    {
+     "rom": "dmg_sound/dmg_sound.gb",
+     "kind": "memory",
+     "frames": 3000,
+     "url": "https://raw.githubusercontent.com/retrio/gb-test-roms/c240dd7d700e5c0b00a7bbba52b53e4ee67b5f15/dmg_sound/dmg_sound.gb",
+     "sha256": "c34e740664eb14b42c39750434e3e105fc92d774a98fb671594a48e972401630",
+     "expect": "fail",
+     "reason": "6 of 12 sub-tests fail (trigger, sweep details, length counter at power-on, wave RAM access while playing, register values after power-on)"
+    },
+    {
+     "rom": "cgb_sound/cgb_sound.gb",
+     "kind": "memory",
+     "frames": 3000,
+     "url": "https://raw.githubusercontent.com/retrio/gb-test-roms/c240dd7d700e5c0b00a7bbba52b53e4ee67b5f15/cgb_sound/cgb_sound.gb",
+     "sha256": "de2101eb718a2bf5f778df76e73a63f4598d9b471559f9a85adc26efa692053b",
+     "expect": "fail",
+     "reason": "same sound-chip details as dmg_sound"
+    }
+   ]
+  },
+  {
+   "name": "acid2",
+   "dir": "acid2",
+   "license": "MIT, Copyright (c) 2020 Matt Currie",
+   "source": "https://github.com/mattcurrie/dmg-acid2, https://github.com/mattcurrie/cgb-acid2",
+   "files": [
+    {
+     "file": "dmg-acid2-reference-dmg.png",
+     "url": "https://raw.githubusercontent.com/mattcurrie/dmg-acid2/8a98ce731f96dde032ffb22ec36dc985d78fdb18/img/reference-dmg.png",
+     "sha256": "ca966d50895c7efef05838590d148c2cbfd7fba57dab986f25b35b4da71abb57"
+    },
+    {
+     "file": "cgb-acid2-reference.png",
+     "url": "https://raw.githubusercontent.com/mattcurrie/cgb-acid2/04c6ca40cf75b6a93513fe596de4ab797efaff97/img/reference.png",
+     "sha256": "9ea9c262c5383353e77d715d021a0f7c5ccbe438f88082cb225756e50c4fdf01"
+    }
+   ],
+   "tests": [
+    {
+     "rom": "dmg-acid2.gb",
+     "kind": "acid",
+     "reference": "dmg-acid2-reference-dmg.png",
+     "frames": 120,
+     "url": "https://github.com/mattcurrie/dmg-acid2/releases/download/v1.0/dmg-acid2.gb",
+     "sha256": "464e14b7d42e7feea0b7ede42be7071dc88913f75b9ffa444299424b63d1dff1"
+    },
+    {
+     "rom": "cgb-acid2.gbc",
+     "kind": "acid",
+     "reference": "cgb-acid2-reference.png",
+     "frames": 120,
+     "url": "https://github.com/mattcurrie/cgb-acid2/releases/download/v1.1/cgb-acid2.gbc",
+     "sha256": "197fb0bcec544f0400527fc707e0a94f55435974986e6986b424ace5de81720e"
+    }
+   ]
+  },
+  {
+   "name": "Mooneye",
+   "dir": "mooneye",
+   "license": "MIT, Copyright (c) 2014-2022 Joonas Javanainen",
+   "source": "https://github.com/Gekkio/mooneye-test-suite (prebuilt mts-20260714-0944-31510e1)",
+   "archive": {
+    "url": "https://gekkio.fi/files/mooneye-test-suite/mts-20260714-0944-31510e1/mts-20260714-0944-31510e1.tar.gz",
+    "sha256": "5f0694e4e9e58441db23ff057a5ab681870d4cfaed91267e99885936db8e6f1d",
+    "strip": "mts-20260714-0944-31510e1/"
+   },
+   "tests": [
+    {
+     "rom": "acceptance/add_sp_e_timing.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "bf736cb8fc06949ba2b16d68ab831e9e6a726a8521ff25ea4257d7cb3499839e",
+     "expect": "fail",
+     "reason": "OAM DMA bus conflicts are not emulated (the test detects instruction fetch timing through them)"
+    },
+    {
+     "rom": "acceptance/bits/mem_oam.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "eba5d165aaa55e7d4a1d1d910ea312a55c78157923c29fbbc34031709390f1de"
+    },
+    {
+     "rom": "acceptance/bits/reg_f.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "4b193e887ee3ac82b38b796729e1503e9a78da3e1140f8bd5600d0884f2e2627"
+    },
+    {
+     "rom": "acceptance/bits/unused_hwio-GS.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "1588928b71c596e41c58c9f414a18a0f906c0bf82a1dfde9d4cefc624a2d193d"
+    },
+    {
+     "rom": "acceptance/boot_div-dmgABCmgb.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "ef2cd0ac53dd2f656461e9b29e95aaef44a843379a2337c168f1832c488242d3",
+     "expect": "fail",
+     "reason": "exact DIV phase after the boot ROM"
+    },
+    {
+     "rom": "acceptance/boot_hwio-dmgABCmgb.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "39f29e27e803bab7ae789bd7dfd556a9df9bc65a825206745aca3f30e4887456",
+     "expect": "fail",
+     "reason": "IO register values after the boot ROM"
+    },
+    {
+     "rom": "acceptance/boot_regs-dmgABC.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "50b4869bfdf6f69e14f82ac4d673c1983b29439157cf84bb422268069766c3c5"
+    },
+    {
+     "rom": "acceptance/call_cc_timing.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "2ef47505ed501128071b490174dccb6904ee6037f88723ed98a23382eee7b4d1",
+     "expect": "fail",
+     "reason": "OAM DMA bus conflicts are not emulated (the test detects instruction fetch timing through them)"
+    },
+    {
+     "rom": "acceptance/call_cc_timing2.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "67d84fc4d97c64399118ef3483a455fe7269d6fdf7f9840f6a00a9596d838a8c",
+     "expect": "fail",
+     "reason": "OAM DMA bus conflicts are not emulated (the test detects instruction fetch timing through them)"
+    },
+    {
+     "rom": "acceptance/call_timing.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "249f524368b8b9bbaa7e05b36f29a5210137d61d59889b596ea505d42e6b749b",
+     "expect": "fail",
+     "reason": "OAM DMA bus conflicts are not emulated (the test detects instruction fetch timing through them)"
+    },
+    {
+     "rom": "acceptance/call_timing2.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "d7ee4ceae48ef630c43a8e960c923b951f492250d9f5e28c1795705692051b47",
+     "expect": "fail",
+     "reason": "OAM DMA bus conflicts are not emulated (the test detects instruction fetch timing through them)"
+    },
+    {
+     "rom": "acceptance/di_timing-GS.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "618dd8f765c71c0f299cd124d8596d12da9ef987e800a45ac5c4b98fd240c54d",
+     "expect": "fail",
+     "reason": "interrupt dispatch timing"
+    },
+    {
+     "rom": "acceptance/div_timing.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "382a9cd42a60ef0a3f03ef834d476a32907f1b3a42b40de5bd3d9705ae9a9734"
+    },
+    {
+     "rom": "acceptance/ei_sequence.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "dcd7f37e8fe7d8eb38cab6732a5826e0bb0278fd1e1d9e297c28d205da1b69e1"
+    },
+    {
+     "rom": "acceptance/ei_timing.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "e5fa88f83727e79912f2c69b91b8e3c1351c0b50ac26203a60c7a6c21e825dbc"
+    },
+    {
+     "rom": "acceptance/halt_ime0_ei.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "0768fd3e698047f5ec2631b5a830558f0ac14bd9cb0ef0ebcc409b00d69adb4d"
+    },
+    {
+     "rom": "acceptance/halt_ime0_nointr_timing.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "40a1e614d77a881672b7c20420aed6b121ad9d3977d71a08fd9bb92ee8f010cf"
+    },
+    {
+     "rom": "acceptance/halt_ime1_timing.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "09d9be4ebdd7645a6b208f18b1354f4b75420ae567dcf27ac404ed6f934d2efa"
+    },
+    {
+     "rom": "acceptance/halt_ime1_timing2-GS.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "10f0f35025d9d648831eaa7b1bfc42251fe26cf130ee483e6baac88d20c01581",
+     "expect": "fail",
+     "reason": "interrupt dispatch timing"
+    },
+    {
+     "rom": "acceptance/if_ie_registers.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "d055b2b4c44902cf827296a06b17cea4f2c84f6b7d540c777cb1d1049ef35e61"
+    },
+    {
+     "rom": "acceptance/instr/daa.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "1498d92d70592a07a2493ef764609916616f0b023b21408189e277201e6c14c1"
+    },
+    {
+     "rom": "acceptance/interrupts/ie_push.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "f80df1b48ca2f81d4ec43b9c66be5f0b30f0d409603d256cc5c7cfc6241c0120"
+    },
+    {
+     "rom": "acceptance/intr_timing.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "a795a190830104a4a231935d3bd16e64a1088bb79084f80bf7d9946ca93d873d"
+    },
+    {
+     "rom": "acceptance/jp_cc_timing.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "8747fa6f969c8ac153a79b37abd2abac5ea98dbe142d5e77e074adec6e9fd481",
+     "expect": "fail",
+     "reason": "OAM DMA bus conflicts are not emulated (the test detects instruction fetch timing through them)"
+    },
+    {
+     "rom": "acceptance/jp_timing.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "514ba4b96355f5074b63feb159a06af85f4fbea412a2d49599c19ea3781712e0",
+     "expect": "fail",
+     "reason": "OAM DMA bus conflicts are not emulated (the test detects instruction fetch timing through them)"
+    },
+    {
+     "rom": "acceptance/ld_hl_sp_e_timing.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "fe22571b9aee1681b81b31055b3773574ba11eb838550fd86e0e773cb0f4240e",
+     "expect": "fail",
+     "reason": "OAM DMA bus conflicts are not emulated (the test detects instruction fetch timing through them)"
+    },
+    {
+     "rom": "acceptance/oam_dma/basic.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "326b747cac8cc96b62d6ee508e73b87eda24bfe29553d3d32e719f3b6d76c97c"
+    },
+    {
+     "rom": "acceptance/oam_dma/reg_read.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "006516fcb302867a2848b47529208ef530669c6445e41d4f3d2dbd33995154a3",
+     "expect": "fail",
+     "reason": "OAM DMA is instantaneous"
+    },
+    {
+     "rom": "acceptance/oam_dma/sources-GS.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "35a38c640047c38b63da0b929f9d744914ee53555e7ccc6853bcc0e82185f11e",
+     "expect": "fail",
+     "reason": "OAM DMA is instantaneous"
+    },
+    {
+     "rom": "acceptance/oam_dma_restart.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "5234eaaa78fcf722a4c8d32bb4f108c65c24e327d062315c6b61f60e535e25de",
+     "expect": "fail",
+     "reason": "OAM DMA is instantaneous"
+    },
+    {
+     "rom": "acceptance/oam_dma_start.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "7c39f8f6f8043fe0ea289d8015b3e72c125ac302a22159b49514dd4e78d89dd3",
+     "expect": "fail",
+     "reason": "OAM DMA is instantaneous"
+    },
+    {
+     "rom": "acceptance/oam_dma_timing.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "e8477c5da80e4fb7999da08abf01ad2438d65fb308a8f0c36b0c7e464c0ad0e0",
+     "expect": "fail",
+     "reason": "OAM DMA is instantaneous"
+    },
+    {
+     "rom": "acceptance/pop_timing.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "4b658ab238b46319f24fa890faf9f337f03ce8769c05be6540742c9aaaf5773a"
+    },
+    {
+     "rom": "acceptance/ppu/hblank_ly_scx_timing-GS.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "3adec9174d16b7a4cece42e5525e4363ff956c19070600aa9344de68b0885449",
+     "expect": "fail",
+     "reason": "PPU timing is per scanline (mode 3 has a fixed length); these tests need dot-exact timing"
+    },
+    {
+     "rom": "acceptance/ppu/intr_1_2_timing-GS.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "3bac47fc79ce514fd7f6bbe0d87f1160b91a5292be27fee7bc3bcea6bc171ee9",
+     "expect": "fail",
+     "reason": "PPU timing is per scanline (mode 3 has a fixed length); these tests need dot-exact timing"
+    },
+    {
+     "rom": "acceptance/ppu/intr_2_0_timing.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "6ea58d6940ad2dde6d20ef1fc63f1da83bdff842672d757a7a2377a3d0cfb7ff",
+     "expect": "fail",
+     "reason": "PPU timing is per scanline (mode 3 has a fixed length); these tests need dot-exact timing"
+    },
+    {
+     "rom": "acceptance/ppu/intr_2_mode0_timing.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "be1555d577506073ba1ec4717060aa24075c02b9c787b874623a98bf2ac2da6e",
+     "expect": "fail",
+     "reason": "PPU timing is per scanline (mode 3 has a fixed length); these tests need dot-exact timing"
+    },
+    {
+     "rom": "acceptance/ppu/intr_2_mode0_timing_sprites.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "52b10bb0d3073ec35d6bc4f0129fcabb788e4d11ea765163a49d519121d5169e",
+     "expect": "fail",
+     "reason": "PPU timing is per scanline (mode 3 has a fixed length); these tests need dot-exact timing"
+    },
+    {
+     "rom": "acceptance/ppu/intr_2_mode3_timing.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "b5cb7d22162e3ed6fa2dafeaa487cf1d1c042b5e8a3a9877823c33b578b9c31e",
+     "expect": "fail",
+     "reason": "PPU timing is per scanline (mode 3 has a fixed length); these tests need dot-exact timing"
+    },
+    {
+     "rom": "acceptance/ppu/intr_2_oam_ok_timing.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "38d7acfddce357c8b084f9bb647d6ffc99d1fb85d7a312c2db2c348ba888f7ff",
+     "expect": "fail",
+     "reason": "PPU timing is per scanline (mode 3 has a fixed length); these tests need dot-exact timing"
+    },
+    {
+     "rom": "acceptance/ppu/lcdon_timing-GS.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "2a9d46b61935ae1a2332abd419bd6d63c2c48697b96ad547c859c207cf531e2f",
+     "expect": "fail",
+     "reason": "PPU timing is per scanline (mode 3 has a fixed length); these tests need dot-exact timing"
+    },
+    {
+     "rom": "acceptance/ppu/lcdon_write_timing-GS.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "e28b34cef8b5d58bf19e058be2206309129a5896568e918b6b11b6c61dce2a51",
+     "expect": "fail",
+     "reason": "PPU timing is per scanline (mode 3 has a fixed length); these tests need dot-exact timing"
+    },
+    {
+     "rom": "acceptance/ppu/stat_irq_blocking.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "604436aeb6a37badd71be0fafa526307345f1de6af757193f11fc77e09a01fc7"
+    },
+    {
+     "rom": "acceptance/ppu/stat_lyc_onoff.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "29f04aaf6b26085bca1dccfab648fb44fbf57d4aa923bca75a30167e45d8670e",
+     "expect": "fail",
+     "reason": "PPU timing is per scanline (mode 3 has a fixed length); these tests need dot-exact timing"
+    },
+    {
+     "rom": "acceptance/ppu/vblank_stat_intr-GS.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "f7de9a3ef1399f73ad16ef23dccf05d38cbd62373215608ee5da53a35850436e",
+     "expect": "fail",
+     "reason": "PPU timing is per scanline (mode 3 has a fixed length); these tests need dot-exact timing"
+    },
+    {
+     "rom": "acceptance/push_timing.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "f764ee5053f4d1f84896ec3ff8761e30beded493d204566e3e5b20af736179f9",
+     "expect": "fail",
+     "reason": "OAM DMA bus conflicts are not emulated (the test detects instruction fetch timing through them)"
+    },
+    {
+     "rom": "acceptance/rapid_di_ei.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "4bcfbee2dcdca7895afff7947742ec942166aeb4899f07995863149ef360f7f0"
+    },
+    {
+     "rom": "acceptance/ret_cc_timing.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "eb95fe488131f625c656631b0188484f3126d80944584128dc514aaf95111fb6",
+     "expect": "fail",
+     "reason": "OAM DMA bus conflicts are not emulated (the test detects instruction fetch timing through them)"
+    },
+    {
+     "rom": "acceptance/ret_timing.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "cfb13c7aa11ff299402530c021fe93bd6f51769433757fd32e46985eb1296206",
+     "expect": "fail",
+     "reason": "OAM DMA bus conflicts are not emulated (the test detects instruction fetch timing through them)"
+    },
+    {
+     "rom": "acceptance/reti_intr_timing.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "a98440bfb0e4f29ef762515e4b842e2777bc35445a30903ed86799cf18dc5c55"
+    },
+    {
+     "rom": "acceptance/reti_timing.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "bb90e11fdb8e40f8d69c94aff300c65ea28e74fd212316a477edbb2325a61eb0",
+     "expect": "fail",
+     "reason": "OAM DMA bus conflicts are not emulated (the test detects instruction fetch timing through them)"
+    },
+    {
+     "rom": "acceptance/rst_timing.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "8ba26360bad21b451f36551863e60831f98e3de1308ae6bf2aee7a73973c99c2",
+     "expect": "fail",
+     "reason": "OAM DMA bus conflicts are not emulated (the test detects instruction fetch timing through them)"
+    },
+    {
+     "rom": "acceptance/timer/div_write.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "2be1e4da6fa24b9123d2a8bae47dd0d6f5e97e1855186c0c0f49e6d213eebfff"
+    },
+    {
+     "rom": "acceptance/timer/rapid_toggle.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "59fe311058895c39475f74bcffb7d4f29272edb74e75d2cfe860c1a9d033b68a"
+    },
+    {
+     "rom": "acceptance/timer/tim00.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "2193036c1628efd9ba86e5729292ef716d6ff3178cfa2abb9797709cd40252e8"
+    },
+    {
+     "rom": "acceptance/timer/tim00_div_trigger.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "5cafdf474dfa7507b0db596118ad7bc65a6d5d652ee4232263dd028e7f2462b7"
+    },
+    {
+     "rom": "acceptance/timer/tim01.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "b6f5043eae7fd2b2c3dc098ff16f664c8eb5699523616d84274669cf90c17fe7"
+    },
+    {
+     "rom": "acceptance/timer/tim01_div_trigger.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "73c1e2677a2a122a285aa052e232153b133873c68cbcbf1cf41aa3d0a1b80a96"
+    },
+    {
+     "rom": "acceptance/timer/tim10.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "fe3b0b292341d5ff26c9db3f6c9f3ba8a3d6e8b63977c61767a457962bd1faed"
+    },
+    {
+     "rom": "acceptance/timer/tim10_div_trigger.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "d83c7acf20a0315486ed77db4f873db40fff6099564f8e250df66274a304b1b9"
+    },
+    {
+     "rom": "acceptance/timer/tim11.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "624fd3ad3ede2790095162cfa212e488825072a0ecc287ff0e88da6c5d7040f1"
+    },
+    {
+     "rom": "acceptance/timer/tim11_div_trigger.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "3f60bc3d2ba63bd9209706332dd6d0ef59ad09ada8dede0caa9e2e5132ed102e"
+    },
+    {
+     "rom": "acceptance/timer/tima_reload.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "1ca70c725bd1e027b07d3058839bd140eccddd9f4ca41305c4f8ab3acaff8a98",
+     "expect": "fail",
+     "reason": "TIMA reload delay of one M-cycle"
+    },
+    {
+     "rom": "acceptance/timer/tima_write_reloading.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "7d9a6d5ada792596621f8bfdf257112887b2dd01d98e0f91a253afd6e05d0540",
+     "expect": "fail",
+     "reason": "TIMA reload delay of one M-cycle"
+    },
+    {
+     "rom": "acceptance/timer/tma_write_reloading.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "e48ff98d4f363b92e92bdabe86253fcf63f648964e3a61e73d52aedcba3e5ab2",
+     "expect": "fail",
+     "reason": "TIMA reload delay of one M-cycle"
+    },
+    {
+     "rom": "emulator-only/mbc1/bits_bank1.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "77c698cb537d22ab00bef3907499853b415d6f03f2572c1e8f199dee9936f74b"
+    },
+    {
+     "rom": "emulator-only/mbc1/bits_bank2.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "52cde75b4ec3c597ad112af1e24bc686e8354c9ed63f3df2cb571afa49f7ff38"
+    },
+    {
+     "rom": "emulator-only/mbc1/bits_mode.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "68417ce068e9b94ab14b2dfbd3953d57c3110bc9c9e50dac69f3bdda665b68be"
+    },
+    {
+     "rom": "emulator-only/mbc1/bits_ramg.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "14815d18d1ddb23c6a1e46c70ab3bbf273bf1c3aec580036362e576de0783675"
+    },
+    {
+     "rom": "emulator-only/mbc1/multicart_rom_8Mb.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "71147f75818877994cca6a0c4c3f9fedacdd50466e1134b743e9d79844995192",
+     "expect": "fail",
+     "reason": "MBC1 multicart wiring (MBC1M) is not detected"
+    },
+    {
+     "rom": "emulator-only/mbc1/ram_256kb.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "c6fdd46418adb4b23356740a8e2bc849c65e4a19605d290f07c49e73048a8037"
+    },
+    {
+     "rom": "emulator-only/mbc1/ram_64kb.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "df747907b4639a91cf4b61a3d342f0c7728b6e618e66ea569c6311d312f86e36"
+    },
+    {
+     "rom": "emulator-only/mbc1/rom_16Mb.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "1e6caad540828cf79a9928ed49b8709a56ba4d7436f7fded6fcf005dbfd71a2a"
+    },
+    {
+     "rom": "emulator-only/mbc1/rom_1Mb.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "22e19e9222b7c531480ab0b569c0a3d9c478cd4128d5a4dc579d39a7cc2d7384"
+    },
+    {
+     "rom": "emulator-only/mbc1/rom_2Mb.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "1bebe8536ed6179854230239d0b1f67c7d8e5d7aa59877487465bc0154ced5c6"
+    },
+    {
+     "rom": "emulator-only/mbc1/rom_4Mb.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "6ba3f62b876becde96dfd130ba050962d7ac5b526d0beb3add738693d1c3526b"
+    },
+    {
+     "rom": "emulator-only/mbc1/rom_512kb.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "9848621544e7acfade18694bbf430b713a552ce95dd1d59d04c0c49852b78d4b"
+    },
+    {
+     "rom": "emulator-only/mbc1/rom_8Mb.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "318a9849f2c1a135fa6dbfd8916dda671c58d65fc305d101a5a15e3227fe61cf"
+    },
+    {
+     "rom": "emulator-only/mbc2/bits_ramg.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "6b112253bf92c83da4fedc7dc29ee6457ea88ee9ed15de71fddc9714440129c9"
+    },
+    {
+     "rom": "emulator-only/mbc2/bits_romb.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "7d7684f05ce489be7485dfe0b2e789f8c85b317e981637afb2813047002b8e7c"
+    },
+    {
+     "rom": "emulator-only/mbc2/bits_unused.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "14813cb3305e52ecfd84887797ed606b6b804db68196397bb6a7cd0d824d57b3"
+    },
+    {
+     "rom": "emulator-only/mbc2/ram.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "dc039f0796c35bc749d564610aee7cace339560555298256e4824e915a38c141"
+    },
+    {
+     "rom": "emulator-only/mbc2/rom_1Mb.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "d1f772ae92234265bc54a023924ac98d4efcb1b59b3c8c2f388afbaca19969d7"
+    },
+    {
+     "rom": "emulator-only/mbc2/rom_2Mb.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "0463c1a364b717d10680e58b2e95854dadcacbdfabe9f7d39f17eb826ef42e69"
+    },
+    {
+     "rom": "emulator-only/mbc2/rom_512kb.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "4748aeda444bee6520e1bd2268870b53c080a61adc4039c8f32eb101a03df635"
+    },
+    {
+     "rom": "emulator-only/mbc5/rom_16Mb.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "315ac9d9d7a3adda80f5fa8dee5826912bd99961e9539bd39ca8b440464ae794"
+    },
+    {
+     "rom": "emulator-only/mbc5/rom_1Mb.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "5170771b8183f7e5e10c2f40d7b3e18d170657b5906305caf111776e2277b425"
+    },
+    {
+     "rom": "emulator-only/mbc5/rom_2Mb.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "e93c53a71292b0066cba749a46fde2119b8733580b403189d3987e922588f0ca"
+    },
+    {
+     "rom": "emulator-only/mbc5/rom_32Mb.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "665b18d5e876f527e2c05579f7166641539fe895522711906c468f75bd00ec90"
+    },
+    {
+     "rom": "emulator-only/mbc5/rom_4Mb.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "188410388f84a5569c2a9f9d6c6e9e269f40d831ea4b718c0ae251d518ecf8c3"
+    },
+    {
+     "rom": "emulator-only/mbc5/rom_512kb.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "6aad3b6b80f5b7308e79ef1acda4a045febe1eddf5021cecc3873d63c3e734ff"
+    },
+    {
+     "rom": "emulator-only/mbc5/rom_64Mb.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "e02ff0175932f76e01421a11b202a3840eb4dad70d735819b7dca45aedefe3c5"
+    },
+    {
+     "rom": "emulator-only/mbc5/rom_8Mb.gb",
+     "kind": "mooneye",
+     "frames": 900,
+     "sha256": "81e32dc0cfe3940f3be759b1206ac5c46ca42acc64b7848e7de586ec1aa1973e"
+    }
+   ]
+  },
+  {
+   "name": "rtc3test",
+   "dir": "rtc3test",
+   "license": "The Unlicense (public domain)",
+   "source": "https://github.com/aaaaaa123456789/rtc3test",
+   "tests": [
+    {
+     "rom": "rtc3test.gb",
+     "kind": "rtc",
+     "frames": 600,
+     "url": "https://github.com/aaaaaa123456789/rtc3test/releases/download/v004/rtc3test.gb",
+     "sha256": "a271013fb37ea1d927b854798401320b220d57abb3ca77f3d318ceb8a9def30d"
+    }
+   ]
+  }
+ ]
+}
