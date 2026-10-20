@@ -28,6 +28,18 @@ class Apu {
 	public var rpos = 0; // read position (pairs), advanced by the frontend
 	public var enabled = true;
 
+	/**
+	 * Stems mode (set by a host that asks for it, e.g. swf2DAW): instead of the mix, `outStems`
+	 * gets every channel on its own, 8 values per sample: Pulse 1, Pulse 2, Wave, Noise (L, R).
+	 * The stems add up to the mix.
+	 */
+	public var stems(default, set) = false;
+	public var outStems:haxe.ds.Vector<Float>;
+	var cap1 = 0.0;
+	var cap2 = 0.0;
+	var cap3 = 0.0;
+	var cap4 = 0.0;
+
 	var regs:Array<Int> = [for (i in 0...0x30) 0];
 	var power = true;
 	var nr50 = 0x77;
@@ -107,6 +119,15 @@ class Apu {
 		var init = [0x80, 0xBF, 0xF3, 0xFF, 0xBF, 0xFF, 0x3F, 0x00, 0xFF, 0xBF, 0x7F, 0xFF, 0x9F, 0xFF, 0xBF, 0xFF, 0xFF, 0x00, 0x00, 0xBF, 0x77, 0xF3];
 		for (i in 0...init.length)
 			regs[i] = init[i];
+	}
+
+	function set_stems(on:Bool) {
+		if (on && outStems == null) {
+			outStems = new haxe.ds.Vector<Float>(BUF * 8);
+			for (i in 0...BUF * 8)
+				outStems[i] = 0;
+		}
+		return stems = on;
 	}
 
 	public function rebase(dt:Int) {
@@ -380,6 +401,10 @@ class Apu {
 	}
 
 	function emit() {
+		if (stems) {
+			emitStems();
+			return;
+		}
 		var l = 0.0, r = 0.0;
 		if (power) {
 			var mix = nr51;
@@ -423,6 +448,46 @@ class Apu {
 		var i = (wpos & (BUF - 1)) << 1;
 		out[i] = ol;
 		out[i + 1] = or;
+		wpos++;
+	}
+
+	/** Like emit(), per channel. The high-pass runs per channel, before panning and NR50. */
+	function emitStems() {
+		var v1 = 0.0, v2 = 0.0, v3 = 0.0, v4 = 0.0;
+		var mix = 0, gl = 0.0, gr = 0.0;
+		if (power) {
+			mix = nr51;
+			if (s1On)
+				v1 = ((DUTY[s1Duty] >> s1Pos) & 1) * s1Vol;
+			if (s2On)
+				v2 = ((DUTY[s2Duty] >> s2Pos) & 1) * s2Vol;
+			if (wvOn) {
+				var bt = Mem.get(0xFF30 + (wvPos >> 1));
+				v3 = ((wvPos & 1) == 0 ? bt >> 4 : bt & 0xF) >> wvShift;
+			}
+			if (nzOn)
+				v4 = (nzLfsr & 1) == 0 ? nzVol : 0;
+			gl = (((nr50 >> 4) & 7) + 1) / (15 * 4 * 8);
+			gr = ((nr50 & 7) + 1) / (15 * 4 * 8);
+		}
+		var o1 = v1 - cap1;
+		cap1 = v1 - o1 * 0.996;
+		var o2 = v2 - cap2;
+		cap2 = v2 - o2 * 0.996;
+		var o3 = v3 - cap3;
+		cap3 = v3 - o3 * 0.996;
+		var o4 = v4 - cap4;
+		cap4 = v4 - o4 * 0.996;
+		var s = outStems;
+		var i = (wpos & (BUF - 1)) << 3;
+		s[i] = (mix & 0x10) != 0 ? o1 * gl : 0;
+		s[i + 1] = (mix & 1) != 0 ? o1 * gr : 0;
+		s[i + 2] = (mix & 0x20) != 0 ? o2 * gl : 0;
+		s[i + 3] = (mix & 2) != 0 ? o2 * gr : 0;
+		s[i + 4] = (mix & 0x40) != 0 ? o3 * gl : 0;
+		s[i + 5] = (mix & 4) != 0 ? o3 * gr : 0;
+		s[i + 6] = (mix & 0x80) != 0 ? o4 * gl : 0;
+		s[i + 7] = (mix & 8) != 0 ? o4 * gr : 0;
 		wpos++;
 	}
 

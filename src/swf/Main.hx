@@ -75,6 +75,7 @@ class Main extends Sprite {
 	var jsAudio = false;
 	var audioCheck = 30;
 	var jsBuf:Array<Float> = [];
+	var stemAudio = false; // the host takes every channel on its own (gb2swfAudioStems)
 
 	// Input recording (for an extra profiling run, see `gb2swf --record`)
 	var recording:Array<Array<Int>> = null;
@@ -173,6 +174,7 @@ class Main extends Sprite {
 			setPalette(palette);
 		if (!soundOn)
 			gb.apu.enabled = false;
+		gb.apu.stems = stemAudio;
 		so = null;
 		if (gb.hasSave()) {
 			try {
@@ -367,6 +369,7 @@ class Main extends Sprite {
 			try {
 				if (ExternalInterface.available && ExternalInterface.call("gb2swfAudioReady") == true) {
 					jsAudio = true;
+					stemAudio = gb.apu.stems = ExternalInterface.call("gb2swfStemsReady") == true;
 					channel.stop();
 					gb.apu.rpos = gb.apu.wpos;
 				}
@@ -417,6 +420,10 @@ class Main extends Sprite {
 			apu.rpos = apu.wpos - 2048;
 			avail = 2048;
 		}
+		if (stemAudio) {
+			pushJsStems(avail);
+			return;
+		}
 		var buf = apu.out;
 		var mask = Apu.BUF - 1;
 		var len = avail << 1;
@@ -435,6 +442,29 @@ class Main extends Sprite {
 		apu.rpos = r;
 		try {
 			ExternalInterface.call("gb2swfAudio", a);
+		} catch (e:Dynamic) {}
+	}
+
+	/** Stems mode: 8 values per sample (Pulse 1, Pulse 2, Wave, Noise; L, R), unrounded. */
+	function pushJsStems(avail:Int) {
+		var apu = gb.apu;
+		var buf = apu.outStems;
+		var mask = Apu.BUF - 1;
+		var len = avail << 3;
+		var a = jsBuf;
+		if (a.length != len)
+			a = jsBuf = [for (i in 0...len) 0.0];
+		var r = apu.rpos;
+		var k = 0;
+		for (i in 0...avail) {
+			var j = (r & mask) << 3;
+			for (c in 0...8)
+				a[k++] = buf[j + c];
+			r++;
+		}
+		apu.rpos = r;
+		try {
+			ExternalInterface.call("gb2swfAudioStems", a);
 		} catch (e:Dynamic) {}
 	}
 
